@@ -1,0 +1,306 @@
+ /* --- Fondo general --- */
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at top left, #d4fcd2, #ccf1cb, #9dc99a);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ---------------------- */
+        /*     CORAZONES          */
+        /* ---------------------- */
+        .float-heart {
+            position: absolute;
+            width: 80px;
+            height: 70px;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+            animation: floatUp linear forwards;
+        }
+
+        .float-heart:before,
+        .float-heart:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 40px;
+            height: 70px;
+            background: linear-gradient(to bottom, #ff0000, #8b0000);
+            border-radius: 40px 40px 0 0;
+            box-shadow:
+                0 0 15px rgba(255, 0, 0, 0.7),
+                inset 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .float-heart:before {
+            left: 40px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .float-heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(1);
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        /* Destello */
+        .flash {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(255, 0, 100, 0.2), transparent);
+            pointer-events: none;
+            transform: scale(0);
+            animation: flashAnim 1s ease-out forwards;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes flashAnim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            60% {
+                transform: scale(6);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+
+        /* Anillos */
+        .ring {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: scale(0);
+            animation: ringAnim 1.2s ease-out forwards;
+        }
+
+        @keyframes ringAnim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(8);
+                opacity: 0;
+            }
+        }
+
+        /* Chispas */
+        .spark {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            animation: sparkAnim 0.8s ease-out forwards;
+        }
+
+        @keyframes sparkAnim {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--dx), var(--dy)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* ---------------------- */
+        /*        CARTA NUEVA     */
+        /* ---------------------- */
+        .envelope-container {
+            position: relative;
+            width: 650px;
+            height: 420px;
+            transition: opacity 0.6s ease;
+            z-index: 5;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #ffc1cc;
+            border-radius: 20px;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+            border: 4px solid #ff9eb6;
+            transition: opacity 0.45s ease;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff9eb6;
+            clip-path: polygon(0 0, 100% 0, 50% 55%);
+            transform-origin: top;
+            z-index: 2;
+            transition: opacity 0.45s ease;
+        }
+
+        .seal {
+            position: absolute;
+            bottom: 89px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-45deg);
+            width: 105px;
+            height: 100px;
+            background: #c0392b;
+            z-index: 8;
+            cursor: pointer;
+            border-radius: 0 0 20px 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3),
+                inset -6px -6px 10px rgba(255, 80, 80, 0.6);
+            animation: heartbeat 2.5s ease-in-out infinite;
+            transition: transform 0.45s ease, left 0.45s ease, bottom 0.45s ease, right 0.45s ease;
+        }
+
+        .seal::before,
+        .seal::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #c0392b;
+            border-radius: 50%;
+            box-shadow: inset -6px -6px 10px rgba(255, 80, 80, 0.6);
+        }
+
+        .seal::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .seal::after {
+            left: 49px;
+            top: 0;
+        }
+
+        .seal-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffb3e6;
+            text-shadow:
+                0 0 6px rgba(255, 182, 240, 0.9),
+                0 0 12px rgba(255, 182, 240, 0.7);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: translateX(-50%) rotate(-45deg) scale(1);
+            }
+
+            25% {
+                transform: translateX(-50%) rotate(-45deg) scale(1.07);
+            }
+
+            50% {
+                transform: translateX(-50%) rotate(-45deg) scale(1.12);
+            }
+
+            75% {
+                transform: translateX(-50%) rotate(-45deg) scale(1.07);
+            }
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-height: 360px;
+            background: #fffdfd;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            z-index: 6;
+            border-radius: 14px;
+            border: 2px dashed #ffc1cc;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            overflow-y: auto;
+        }
+
+        .letter.show {
+            opacity: 1;
+        }
+
+        .piece {
+            position: absolute;
+            background: #ffc1cc;
+            border: 1px solid #ff9eb6;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            transition: transform 2.2s cubic-bezier(.2, .8, .2, 1), opacity 2.2s ease;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        /* Imágenes aleatorias */
+        img {
+            position: absolute;
+            max-width: 200px;
+            max-height: 200px;
+            opacity: 0;
+            transition: opacity 2s ease;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            border: 3px solid white;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
